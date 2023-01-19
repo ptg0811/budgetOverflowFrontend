@@ -51,6 +51,8 @@ export const goalDetail = atom({
     endDate: new Date(),
     title: '',
     hashtag: [''],
+    emoji: '',
+
     createdAt: new Date(),
     updatedAt: new Date(),
     members: [{ nickname: '', achieveRate: 0 }],
