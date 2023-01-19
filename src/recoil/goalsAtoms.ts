@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { IPostGoal } from '../interfaces/interfaces';
+import { IGoal, IPostGoal } from '../interfaces/interfaces';
 
 const { persistAtom } = recoilPersist();
 
@@ -59,7 +59,7 @@ export const goalDetail = atom({
   },
 });
 
-export const groupGoals = atom({
+export const groupGoals = atom<Array<IGoal>>({
   key: 'groupGoals',
   default: [
     {
@@ -74,6 +74,7 @@ export const groupGoals = atom({
       startDate: new Date(),
       endDate: new Date(),
       headCount: 0,
+      curCount: 0,
     },
   ],
 });

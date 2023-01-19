@@ -4,6 +4,7 @@ import {
   IAuthAccount,
   IAccount,
   IPostAccount,
+  IBank,
   IPostGoal,
   IValidateAccount,
   IReqAuthAccout,
@@ -64,13 +65,13 @@ tokenClient.interceptors.response.use(
 
 export const userAPI = {
   getKakaoSignup: async (code: string | null) => {
-    const { data } = await noneTokenClient.get('/api/users/auth/kakao?code=' + code);
+    const { data } = await noneTokenClient.get('/users/auth/kakao?code=' + code);
 
     return data;
   },
 
   getNaverSignup: async (code: string | null) => {
-    const { data } = await noneTokenClient.get(`/api/users/auth/naver?code=${code}`);
+    const { data } = await noneTokenClient.get(`/users/auth/naver?code=${code}`);
 
     localStorage.setItem('accessToken', data.accessToken);
     localStorage.setItem('refreshToken', data.refreshToken);
@@ -78,20 +79,20 @@ export const userAPI = {
   },
 
   getGoogleSignup: async (code: string | null) => {
-    const { data } = await noneTokenClient.get('/api/users/auth/google?code=' + code);
+    const { data } = await noneTokenClient.get('/users/auth/google?code=' + code);
 
     return data;
   },
 
   postPinCode: async (userId: number, pinCode: object) => {
-    const { data } = await tokenClient.post(`/api/users/${userId}/pincode`, pinCode);
+    const { data } = await tokenClient.post(`/users/${userId}/pincode`, pinCode);
 
     return data;
   },
 
   // TODO: 리프레신 토큰 전달
   postAccessTokenByPinCode: async (pinCode: object) => {
-    const { data } = await tokenClient.post('/api/users/pinCode', pinCode);
+    const { data } = await tokenClient.post('/users/pinCode', pinCode);
 
     return data;
   },
@@ -235,34 +236,34 @@ export const accountApi = {
 };
 
 export const goalApi = {
-  getBanks: async () => {
-    // const { data } = await tokenClient.get(`/banks`);
-    // TODO: test get banks
-    const data = {
-      banks: [
-        { id: 0, code: '088', name: '신한은행' },
-        { id: 1, code: '088', name: '신한은행' },
-        { id: 2, code: '088', name: '신한은행' },
-        { id: 3, code: '088', name: '신한은행' },
-        { id: 4, code: '088', name: '신한은행' },
-        { id: 5, code: '088', name: '신한은행' },
-        { id: 6, code: '088', name: '신한은행' },
-        { id: 7, code: '088', name: '신한은행' },
-        { id: 8, code: '088', name: '신한은행' },
-        { id: 9, code: '088', name: '신한은행' },
-        { id: 10, code: '088', name: '신한은행' },
-        { id: 11, code: '088', name: '신한은행' },
-        { id: 12, code: '088', name: '신한은행' },
-        { id: 13, code: '088', name: '신한은행' },
-        { id: 14, code: '088', name: '신한은행' },
-        { id: 15, code: '088', name: '신한은행' },
-        { id: 16, code: '088', name: '신한은행' },
-        { id: 17, code: '088', name: '신한은행' },
-        { id: 18, code: '088', name: '신한은행' },
-        { id: 19, code: '088', name: '신한은행' },
-        { id: 20, code: '088', name: '신한은행' },
-      ],
-    };
+  getBanks: async (): Promise<Array<IBank>> => {
+    const { data } = await tokenClient.get(`/banks`);
+    // const data = {
+    //   banks: [
+    //     { bankId: 0, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 1, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 2, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 3, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 4, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 5, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 6, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 7, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 8, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 9, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 10, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 11, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 12, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 13, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 14, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 15, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 16, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 17, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 18, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 19, bankCode: '088', bankName: '신한은행' },
+    //     { bankId: 20, bankCode: '088', bankName: '신한은행' },
+    //   ],
+    // };
+
     return data.banks;
   },
   postGoal: async (goalData: IPostGoal) => {
@@ -270,29 +271,34 @@ export const goalApi = {
 
     return data;
   },
-  getGoalDetail: async (goalId: number) => {
-    // const { data } = await tokenClient.get(`goals/${goalId}`);
+  getGoals: async () => {
+    const { data } = await tokenClient.get(`/goals`);
 
-    const data = {
-      result: {
-        goalId: 1,
-        userId: 1,
-        nickname: '태근',
-        amount: 100000,
-        curCount: 2,
-        headCount: 10,
-        startDate: new Date('2023-01-20'),
-        endDate: new Date('2023-01-27'),
-        title: '생일선물',
-        hashtag: ['생일선물', '소액모으기'],
-        createdAt: new Date('2023-01-15'),
-        updatedAt: new Date('2023-01-17'),
-        members: [
-          { nickname: '태근', achieveRate: 80 },
-          { nickname: '유진', achieveRate: 80 },
-        ],
-      },
-    };
+    return data;
+  },
+  getGoalDetail: async (goalId: number) => {
+    const { data } = await tokenClient.get(`/goals/${goalId}`);
+
+    // const data = {
+    //   result: {
+    //     goalId: 1,
+    //     userId: 1,
+    //     nickname: '태근',
+    //     amount: 100000,
+    //     curCount: 2,
+    //     headCount: 10,
+    //     startDate: new Date('2023-01-20'),
+    //     endDate: new Date('2023-01-27'),
+    //     title: '생일선물',
+    //     hashtag: ['생일선물', '소액모으기'],
+    //     createdAt: new Date('2023-01-15'),
+    //     updatedAt: new Date('2023-01-17'),
+    //     members: [
+    //       { nickname: '태근', achieveRate: 80 },
+    //       { nickname: '유진', achieveRate: 80 },
+    //     ],
+    //   },
+    // };
 
     return data;
   },
@@ -359,19 +365,19 @@ export const goalApi = {
   },
 
   joinGoal: async (goalId: string | undefined) => {
-    const response = await tokenClient.post(`/api/goals/join/${goalId}`);
+    const response = await tokenClient.post(`/goals/join/${goalId}`);
 
     return response;
   },
 
   withdrawGoal: async (goalId: string | undefined) => {
-    const response = await tokenClient.post(`/api/goals/exit/${goalId}`);
+    const response = await tokenClient.post(`/goals/exit/${goalId}`);
 
     return response;
   },
 
   deleteGoal: async (goalId: string | undefined) => {
-    const response = await tokenClient.post(`/api/goals/${goalId}`);
+    const response = await tokenClient.post(`/goals/${goalId}`);
 
     return response;
   },
