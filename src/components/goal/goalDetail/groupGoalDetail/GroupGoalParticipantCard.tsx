@@ -8,7 +8,7 @@ const GroupGoalParticipantCard = ({ nickname, img }: IParticapantInfoProps) => {
   return (
     <GroupGoalParticipantCardWrapper>
       <PaticpantInfoWrapper>
-        <ProfileImg url={img} size={25} />
+        <ProfileImg url='null' size={25} />
         <Nickname>{nickname}</Nickname>
       </PaticpantInfoWrapper>
     </GroupGoalParticipantCardWrapper>

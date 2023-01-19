@@ -15,11 +15,11 @@ interface IGoalInfoCardProps {
   title: string;
   emoji: string;
   startDate: Date;
-  recruitCount: number;
+  curCount: number;
   headCount: number;
   amount: number;
   attainment: number;
-  recruitMember: Array<IParticapantInfoProps>;
+  members: Array<IParticapantInfoProps>;
 }
 
 const GoalInfoCard = ({
@@ -28,10 +28,10 @@ const GoalInfoCard = ({
   emoji,
   startDate,
   headCount,
-  recruitCount,
+  curCount,
   amount,
   attainment,
-  recruitMember,
+  members,
 }: IGoalInfoCardProps) => {
   return (
     <GoalInfoCardWrapper>
@@ -40,7 +40,7 @@ const GoalInfoCard = ({
         <TitleSpan>{title}</TitleSpan>
       </UpperWrapper>
       <Amount>{amount.toLocaleString()} 원</Amount>
-      {participantIdFinder(recruitMember, userId) ? (
+      {participantIdFinder(members, userId) ? (
         <BottomContent>
           <ProgressBarWrapper>
             <ProgressBar width={`${attainment}%`} />
@@ -55,7 +55,7 @@ const GoalInfoCard = ({
           {' '}
           <StartDate>{`${dateStringTranslator(startDate)} 시작`}</StartDate>
           <HeadCount>
-            {recruitCount} / {headCount}
+            {curCount} / {headCount}
           </HeadCount>
         </>
       )}

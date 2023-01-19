@@ -4,19 +4,19 @@ import { IParticapantInfoProps } from '../../../../interfaces/interfaces';
 import GroupGoalParticipantCard from './GroupGoalParticipantCard';
 
 interface IGoalParticipnatListProps {
-  recruitMember: Array<IParticapantInfoProps>;
+  members: Array<IParticapantInfoProps>;
   headCount: number;
 }
 
 // TODO: 목표 참가자 달성률
-const GroupGoalParticipantList = ({ recruitMember, headCount }: IGoalParticipnatListProps) => {
-  const recruitMembers = recruitMember.map((member) => (
+const GroupGoalParticipantList = ({ members, headCount }: IGoalParticipnatListProps) => {
+  const memberList = members.map((member) => (
     <GroupGoalParticipantCard
       key={member.userId}
       userId={member.userId}
       nickname={member.nickname}
       img={member.img}
-      attainment={member.attainment}
+      achieveRate={member.achieveRate}
     />
   ));
 
@@ -24,10 +24,10 @@ const GroupGoalParticipantList = ({ recruitMember, headCount }: IGoalParticipnat
     <GroupGoalParticipantListWrapper>
       <UpperLineWrapper>
         <ParticipantCount>
-          참가자 {recruitMember.length} / {headCount}
+          참가자 {memberList.length} / {headCount}
         </ParticipantCount>
       </UpperLineWrapper>
-      <ParticapantList>{recruitMembers}</ParticapantList>
+      <ParticapantList>{memberList}</ParticapantList>
     </GroupGoalParticipantListWrapper>
   );
 };

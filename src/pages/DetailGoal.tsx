@@ -26,7 +26,7 @@ const DetailGoal = () => {
   const { id: userId } = useRecoilValue(userInfo);
   const { id } = useRecoilValue(goalId);
 
-  const { isLoading: isLoading, data: goalDetailData } = useQuery<IGetGoalDetail>('goalDetail', () =>
+  const { isLoading: isLoading, data: goalDetailsdata } = useQuery<IGetGoalDetail>('goalDetail', () =>
     goalApi.getGoalDetail(id)
   );
 
@@ -34,14 +34,14 @@ const DetailGoal = () => {
   const goalDetails = useRecoilValue(goalDetail);
 
   useEffect(() => {
-    if (!goalDetailData) return;
-    setGoalDetail(goalDetailData.goalDetail);
-  }, [goalDetailData]);
+    if (!goalDetailsdata) return;
+    setGoalDetail(goalDetailsdata.result);
+  }, [goalDetailsdata]);
 
   const buttonSet = (userId: number) => {
-    const findId = goalDetails?.recruitMember.findIndex((member) => member.userId === userId);
+    const findId = goalDetails?.members.findIndex((member) => member.userId === userId);
 
-    if (userId === goalDetails.createdUserId) {
+    if (userId === goalDetails.userId) {
       return (
         <GoalButtonSet>
           <GoalModifyButton />
@@ -56,7 +56,7 @@ const DetailGoal = () => {
       );
     }
 
-    if (userId !== goalDetails.createdUserId && findId !== -1) {
+    if (userId !== goalDetails.userId && findId !== -1) {
       return (
         <GoalButtonSet>
           {inProgressChecker(goalDetails.startDate, goalDetails.endDate) ? (
@@ -70,7 +70,7 @@ const DetailGoal = () => {
       );
     }
 
-    if (userId !== goalDetails.createdUserId && findId === -1) {
+    if (userId !== goalDetails.userId && findId === -1) {
       return (
         <GoalButtonSet>
           {inProgressChecker(goalDetails.startDate, goalDetails.endDate) ? (
@@ -97,14 +97,15 @@ const DetailGoal = () => {
             emoji={goalDetails.emoji}
             startDate={goalDetails.startDate}
             headCount={goalDetails.headCount}
-            recruitCount={goalDetails.recruitCount}
+            curCount={goalDetails.curCount}
             amount={goalDetails.amount}
+            // 목표 개설한 사람의 achivement
             attainment={goalDetails.attainment}
-            recruitMember={goalDetails.recruitMember}
+            members={goalDetails.members}
           />
           <GoalPeriodCard startDate={goalDetails.startDate} endDate={goalDetails.endDate} />
           <GoalDescCard description={goalDetails.description} />
-          {participantIdFinder(goalDetails.recruitMember, userId) ? (
+          {participantIdFinder(goalDetails.members, userId) ? (
             <>
               <MyGoalAccountInfoCard />
             </>
@@ -112,13 +113,13 @@ const DetailGoal = () => {
             <></>
           )}
 
-          {personalGoalChecker(goalDetails.recruitCount, goalDetails.headCount) ? (
+          {personalGoalChecker(goalDetails.curCount, goalDetails.headCount) ? (
             <>
               <PersonalGoalSpace></PersonalGoalSpace>
             </>
           ) : (
             <>
-              <GroupGoalParticipantList recruitMember={goalDetails.recruitMember} headCount={goalDetails.headCount} />
+              <GroupGoalParticipantList members={goalDetails.members} headCount={goalDetails.headCount} />
             </>
           )}
 

@@ -84,30 +84,34 @@ export interface IBadge {
   description: string;
 }
 
+export interface IMembers {
+  nickname: string;
+  achieveRate: number;
+}
+
 export interface IGetGoalDetail {
-  goalDetail: {
-    createdUserId: number;
-    id: number;
-    title: string;
-    emoji: string;
-    description: string;
-    isPrivate: boolean;
-    hashtag: Array<string>;
+  result: {
+    goalId: number;
+    userId: number;
+    nickname: string;
     amount: number;
-    attainment: number;
+    curCount: number;
+    headCount: number;
     startDate: Date;
     endDate: Date;
-    recruitCount: number;
-    headCount: number;
-    recruitMember: Array<IParticapantInfoProps>;
+    title: string;
+    hashtag: Array<string>;
+    createdAt: Date;
+    updatedAt: Date;
+    members: Array<IMembers>;
   };
 }
 
 export interface IParticapantInfoProps {
-  userId: number;
+  userId?: number;
   nickname: string;
-  img: string;
-  attainment: number;
+  img?: string;
+  achieveRate: number;
 }
 
 export interface MyToken {

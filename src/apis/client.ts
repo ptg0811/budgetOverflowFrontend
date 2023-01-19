@@ -271,51 +271,28 @@ export const goalApi = {
     return data;
   },
   getGoalDetail: async (goalId: number) => {
-    const { data } = await tokenClient.get(`goals/${goalId}`);
+    // const { data } = await tokenClient.get(`goals/${goalId}`);
 
-    // const data = {
-    //   goalDetail: {
-    //     createdUserId: 2,
-    //     id: 1,
-    //     title: '생일선물',
-    //     emoji: '26f0-fe0f',
-    //     description: '친구 생일선물 구매비용 모으기',
-    //     isPrivate: false,
-    //     hashtag: ['생일선물', '소액모으기'],
-    //     amount: 100000,
-    //     attainment: 80,
-    //     startDate: new Date('2023-01-15'),
-    //     endDate: new Date('2023-01-16'),
-    //     recruitCount: 5,
-    //     headCount: 10,
-    //     recruitMember: [
-    //       { userId: 1, nickname: '태근', img: 'img.jpg', attainment: 80 },
-    //       { userId: 2, nickname: '유진', img: 'img2.jpg', attainment: 80 },
-    //       { userId: 3, nickname: '제승', img: 'img3.jpg', attainment: 80 },
-    //       { userId: 4, nickname: '수완', img: 'img4.jpg', attainment: 80 },
-    //       { userId: 5, nickname: '쥬향', img: 'img5.jpg', attainment: 80 },
-    //     ],
-    //   },
-    // };
-
-    // const data = {
-    //   goalDetail: {
-    //     createdUserId: 1,
-    //     id: 2,
-    //     title: '생일선물',
-    //     emoji: '26f0-fe0f',
-    //     description: '친구 생일선물 구매비용 모으기',
-    //     isPrivate: false,
-    //     hashtag: ['생일선물', '소액모으기'],
-    //     amount: 100000,
-    //     attainment: 80,
-    //     startDate: new Date('2023-01-15'),
-    //     endDate: new Date('2023-01-20'),
-    //     recruitCount: 1,
-    //     headCount: 1,
-    //     recruitMember: [{ userId: 1, nickname: '태근', img: 'img.jpg', attainment: 80 }],
-    //   },
-    // };
+    const data = {
+      result: {
+        goalId: 1,
+        userId: 1,
+        nickname: '태근',
+        amount: 100000,
+        curCount: 2,
+        headCount: 10,
+        startDate: new Date('2023-01-20'),
+        endDate: new Date('2023-01-27'),
+        title: '생일선물',
+        hashtag: ['생일선물', '소액모으기'],
+        createdAt: new Date('2023-01-15'),
+        updatedAt: new Date('2023-01-17'),
+        members: [
+          { nickname: '태근', achieveRate: 80 },
+          { nickname: '유진', achieveRate: 80 },
+        ],
+      },
+    };
 
     return data;
   },
