@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import dotenv from 'dotenv';
 
 import Button from '../../common/elem/Button';
 import { Colors } from '../../../styles/colors';
 
 import NaverLogo from '../../../assets/icons/ico_Naver_logo.png';
 
-dotenv.config();
 // TODO: media query 설정
 // TODO: redirect uri, client id env 파일 설정
 const NaverSignupButton = () => {
