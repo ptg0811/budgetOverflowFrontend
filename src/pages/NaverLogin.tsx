@@ -18,6 +18,7 @@ const NaverLogin = () => {
     try {
       if (!code) return alert('잘못된 코드를 받았습니다.');
       const data = await userAPI.getNaverSignup(code);
+      console.log('naverlogin:', data);
       localStorage.setItem('accessToken', data.accessToken);
       localStorage.setItem('refreshToken', data.refreshToken);
       setUserInfo({
