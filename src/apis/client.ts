@@ -492,7 +492,7 @@ const BANK_HKEY = process.env.REACT_APP_BANK_API_HKEY;
 export const bankAPI = {
   reqAuthAccnt: async ({ bankCode, accntNo }: IReqAuthAccout) => {
     const result = await axios.post(
-      '/hb0081000378',
+      '/bankapi/hb0081000378',
       {
         inBankCode: bankCode,
         inAccount: accntNo,
@@ -509,7 +509,7 @@ export const bankAPI = {
   },
   authAccnt: async ({ oriSeqNo, authString }: IAuthAccount) => {
     const result = await axios.post(
-      '/hb0081000379',
+      '/bankapi/hb0081000379',
       {
         oriSeqNo: oriSeqNo,
         inPrintContent: authString,
@@ -525,7 +525,7 @@ export const bankAPI = {
   },
   validateAccntInfo: async (accntInfo: IValidateAccount) => {
     const result = await axios.post(
-      '/in0087000484',
+      '/bankapi/in0087000484',
       {
         gubun: '01',
         bankCd: accntInfo.bankCode,
