@@ -13,7 +13,6 @@ interface BankListProps {
 }
 
 const BankList = ({ banks, closeHandler, selectHandler }: BankListProps) => {
-  console.log('received banks:', banks);
   return (
     <Wrapper>
       <TopContent>

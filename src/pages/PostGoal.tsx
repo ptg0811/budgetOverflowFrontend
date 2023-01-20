@@ -16,7 +16,6 @@ const PostGoal = () => {
   const { type } = useParams();
   const { data: banks } = useQuery<Array<IBank>>('getBanks', () => goalApi.getBanks());
 
-  console.log('postGoal banks:', banks);
   const setBanksInfo = useSetRecoilState(banksInfo);
   useEffect(() => {
     if (!banks) return;

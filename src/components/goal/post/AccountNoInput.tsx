@@ -38,7 +38,6 @@ const AccountNoInput = ({ authNoHandler, authReqHandler }: AccountNoInputProps) 
   });
 
   const banks = useRecoilValue(banksInfo);
-  console.log('get recoil value:', banks);
   const [showBanks, setShowBanks] = useState<boolean>(false);
   const handleShowBanks = () => {
     setShowBanks(!showBanks);
