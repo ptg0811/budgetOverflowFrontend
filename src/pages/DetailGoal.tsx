@@ -23,13 +23,14 @@ import { IGoalDetail } from '../interfaces/interfaces';
 import useLogout from '../hooks/useLogout';
 
 import { inProgressChecker, participantIdFinder, personalGoalChecker } from '../utils/detailGoalChecker';
+import { useParams } from 'react-router-dom';
 
 const DetailGoal = () => {
   const { id: userId } = useRecoilValue(userInfo);
-  const { id } = useRecoilValue(goalId);
+  const { id } = useParams();
   const logout = useLogout();
   const { isLoading: isLoading, data: goalDetailData } = useQuery<IGoalDetail>('goalDetail', () =>
-    goalApi.getGoalDetail(id).catch((e) => {
+    goalApi.getGoalDetail(Number(id)).catch((e) => {
       if (e.status === 410) {
         logout();
       }
