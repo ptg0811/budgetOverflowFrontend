@@ -273,7 +273,7 @@ export const goalApi = {
     //   ],
     // };
 
-    return data.banks;
+    return data;
   },
   postGoal: async (goalData: IPostGoal) => {
     const { data } = await tokenClient.post(`/goals`, goalData);
