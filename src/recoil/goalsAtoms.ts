@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-import { IPostGoal, ISearchGoal } from '../interfaces/interfaces';
+import { IGoalDetail, IPostGoal, ISearchGoal } from '../interfaces/interfaces';
 
 const { persistAtom } = recoilPersist();
 
@@ -38,7 +38,7 @@ export const goalId = atom({
   },
 });
 
-export const goalDetail = atom({
+export const goalDetail = atom<IGoalDetail>({
   key: 'goalDetail',
   default: {
     createdUserId: 0,
@@ -47,14 +47,14 @@ export const goalDetail = atom({
     emoji: '',
     description: '',
     isPrivate: false,
-    hashtag: [''],
+    hashTag: [],
     amount: 0,
     attainment: 0,
     startDate: new Date(),
     endDate: new Date(),
-    recruitCount: 0,
+    curCount: 0,
     headCount: 0,
-    recruitMember: [{ userId: 0, nickname: '', img: '', attainment: 0 }],
+    members: [{ userId: 0, nickname: '', img: '', attainment: 0 }],
   },
 });
 
@@ -71,7 +71,7 @@ export const groupGoals = atom<Array<ISearchGoal>>({
       startDate: new Date(),
       endDate: new Date(),
       title: '',
-      hashtag: [''],
+      hashTag: [],
       emoji: '',
       description: '',
       createdAt: new Date(),
