@@ -18,8 +18,6 @@ const NaverLogin = () => {
     try {
       if (!code) return alert('잘못된 코드를 받았습니다.');
       const data = await userAPI.getNaverSignup(code);
-      console.log(data.accessToken);
-
       setUserInfo({
         id: jwtDecoder<MyToken>(data.accessToken).userId,
         isLogin: true,
