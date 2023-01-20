@@ -33,6 +33,7 @@ const GoalInfoCard = ({
   attainment,
   recruitMember,
 }: IGoalInfoCardProps) => {
+  console.log(attainment);
   return (
     <GoalInfoCardWrapper>
       <UpperWrapper>
