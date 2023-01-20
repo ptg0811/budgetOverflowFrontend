@@ -6,6 +6,7 @@ import EmojiBox from '../common/elem/EmojiBox';
 import { ISearchGoal } from '../../interfaces/interfaces';
 
 const NarrowGroupGoalCard = ({ goal }: { goal: ISearchGoal }) => {
+  console.log(goal.emoji);
   return (
     <CardWrapper>
       <EmojiBox unicode={goal.emoji} boxSize={72} emojiSize={72} showBg={false} />
