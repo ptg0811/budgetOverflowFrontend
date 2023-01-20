@@ -18,16 +18,17 @@ const NaverLogin = () => {
     try {
       if (!code) return alert('잘못된 코드를 받았습니다.');
       const data = await userAPI.getNaverSignup(code);
-      console.log('naverlogin:', data);
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      console.log(data.accessToken);
+
       setUserInfo({
         id: jwtDecoder<MyToken>(data.accessToken).userId,
         isLogin: true,
         isAccessToken: true,
         isRefreshToken: true,
       });
-      navigate('/home');
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      navigate('/');
     } catch (e) {
       console.log('naver signup error:', e);
       localStorage.removeItem('accessToken');
